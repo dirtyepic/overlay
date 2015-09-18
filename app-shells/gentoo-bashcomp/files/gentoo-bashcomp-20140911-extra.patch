@@ -1,0 +1,16 @@
+diff --git a/completions/emerge b/completions/emerge
+index 63c02b4..fd469e9 100644
+--- a/completions/emerge
++++ b/completions/emerge
+@@ -405,6 +405,9 @@ _emerge()
+ 
+     return 0
+ } &&
+-complete -o filenames -F _emerge emerge
+-
++complete -o filenames -F _emerge emerge e vieb vich cdeb ebmd detest \
++   ebclean ebmanifest ebfmanifest ebsetup ebcsetup ebunpack ebcunpack \
++   ebprepare ebcprepare ebconfigure ebcconfigure ebcompile ebccompile \
++   ebtest ebctest ebinstall ebcinstall ebmerge ebcmerge em \
++   cp2overlay ekwshow eshowkw
+ # vim: ft=sh:et:ts=4:sw=4:tw=80

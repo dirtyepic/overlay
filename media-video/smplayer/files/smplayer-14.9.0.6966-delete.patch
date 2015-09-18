@@ -1,0 +1,54 @@
+http://forum.smplayer.info/viewtopic.php?f=4&t=7054
+
+--- a/src/basegui.cpp
++++ b/src/basegui.cpp
+@@ -545,6 +545,9 @@ void BaseGui::createActions() {
+ 	connect( gotoAct, SIGNAL(triggered()),
+              this, SLOT(showGotoDialog()) );
+ 
++	deleteSelectedFileFromDiskAct = new MyAction( Qt::Key_F8, this, "pl_delete_from_disk" );
++	connect ( deleteSelectedFileFromDiskAct, SIGNAL(triggered()), playlist, SLOT(deleteSelectedFileFromDisk()));
++
+ 	// Submenu Speed
+ 	normalSpeedAct = new MyAction( Qt::Key_Backspace, this, "normal_speed" );
+ 	connect( normalSpeedAct, SIGNAL(triggered()),
+@@ -1292,6 +1295,7 @@ void BaseGui::setActionsEnabled(bool b) {
+ 	forward3Act->setEnabled(b);
+ 	//repeatAct->setEnabled(b);
+ 	gotoAct->setEnabled(b);
++	deleteSelectedFileFromDiskAct->setEnabled(b);
+ 
+ 	// Menu Speed
+ 	normalSpeedAct->setEnabled(b);
+@@ -1625,6 +1629,8 @@ void BaseGui::retranslateStrings() {
+ 	decSpeed1Act->change( tr("Speed -&1%") );
+ 	incSpeed1Act->change( tr("S&peed +1%") );
+ 
++	deleteSelectedFileFromDiskAct->change( tr("Delete file from disk") );
++
+ 	// Menu Video
+ 	fullscreenAct->change( Images::icon("fullscreen"), tr("&Fullscreen") );
+ 	compactAct->change( Images::icon("compact"), tr("&Compact mode") );
+@@ -2403,6 +2409,11 @@ void BaseGui::createMenus() {
+ 	playMenu->addAction(forward3Act);
+ 	playMenu->addSeparator();
+ 
++	// Delete menu
++	playMenu->addSeparator();
++	playMenu->addAction(deleteSelectedFileFromDiskAct);
++	playMenu->addSeparator();
++
+ 	// Speed submenu
+ 	speed_menu = new QMenu(this);
+ 	speed_menu->menuAction()->setObjectName("speed_menu");
+--- a/src/basegui.h
++++ b/src/basegui.h
+@@ -724,6 +724,8 @@ protected:
+ 	MyAction * dvdnavMouseAct;
+ #endif
+ 
++	MyAction * deleteSelectedFileFromDiskAct;
++
+ 	// MENUS
+ 	QMenu *openMenu;
+ 	QMenu *playMenu;
