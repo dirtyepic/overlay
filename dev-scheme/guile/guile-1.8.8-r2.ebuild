@@ -10,7 +10,7 @@ HOMEPAGE="https://www.gnu.org/software/guile/"
 SRC_URI="mirror://gnu/guile/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
-KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~ppc-aix ~amd64-fbsd ~x86-fbsd ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~amd64-fbsd ~x86-fbsd ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
 IUSE="networking +regex discouraged +deprecated emacs nls debug-freelist debug-malloc debug +threads"
 RESTRICT="!regex? ( test )"
 
@@ -32,6 +32,7 @@ MAJOR="1.8"
 src_prepare() {
 	epatch "${FILESDIR}/${P}-fix_guile-config.patch" \
 		"${FILESDIR}/${P}-gcc46.patch" \
+		"${FILESDIR}/${P}-gcc5.patch" \
 		"${FILESDIR}/${P}-makeinfo-5.patch" \
 		"${FILESDIR}/${P}-gtexinfo-5.patch"
 	sed \
