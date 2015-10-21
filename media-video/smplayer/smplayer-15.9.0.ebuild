@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/smplayer/smplayer-14.9.0.6994.ebuild,v 1.1 2015/07/29 09:40:27 yngwin Exp $
+# $Id$
 
 EAPI=5
 PLOCALES="ar ar_SY bg ca cs da de el_GR en_GB en_US es et eu fi fr gl he_IL hr
@@ -45,6 +45,7 @@ RDEPEND="${DEPEND}
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-14.9.0.6966-unbundle-qtsingleapplication.patch # bug 487544
 	use bidi || epatch "${FILESDIR}"/${PN}-14.9.0.6690-zero-bidi.patch
+
 	epatch "${FILESDIR}"/${PN}-14.9.0.6966-delete.patch
 
 	# Upstream Makefile sucks
@@ -75,6 +76,10 @@ src_prepare() {
 	# Turn off online update checker, bug #479902
 	sed -e 's:DEFINES += UPDATE_CHECKER:#DEFINES += UPDATE_CHECKER:' \
 		-e 's:DEFINES += CHECK_UPGRADED:#DEFINES += CHECK_UPGRADED:' \
+		-i "${S}"/src/smplayer.pro || die "sed failed"
+
+	# Turn off nasty share widget
+	sed -e 's:DEFINES += SHAREWIDGET:#DEFINES += SHAREWIDGET:' \
 		-i "${S}"/src/smplayer.pro || die "sed failed"
 
 	# Turn off youtube support (which pulls in extra dependencies) if unwanted
